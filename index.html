@@ -863,20 +863,32 @@ function drawTrans(){
 // ══════════════════════════════════════════════
 function setupPause(){
   BTNS=[];
-  const cw=180,cx=(NW-cw)/2;
-  const bw=150,bx=cx+(cw-bw)/2; // perfectly centered
-  const base=NH/2-6;
-  BTNS.push(mkBtn('CONTINUAR', bx,base,     bw,22,()=>{STATE=prevST;BTNS=[];},'green'));
-  BTNS.push(mkBtn('REINICIAR', bx,base+30,  bw,22,()=>{reset();initP1();},'orange'));
-  BTNS.push(mkBtn('PERSONAGEM',bx,base+60,  bw,22,()=>{initCharSel();},'blue'));
-  BTNS.push(mkBtn('MENU',      bx,base+90,  bw,22,()=>{reset();STATE='MENU';setupMenu();},'dark'));
+
+  const cw=180,ch=158;
+  const cx=(NW-cw)/2,cy=(NH-ch)/2;
+
+  const bw=150,bh=20,gap=8;
+  const bx=cx+(cw-bw)/2;
+
+  // Centraliza os 4 botoes dentro da area util do painel
+  const firstY=cy+48;
+
+  BTNS.push(mkBtn('CONTINUAR',  bx,firstY,              bw,bh,()=>{STATE=prevST;BTNS=[];},'green'));
+  BTNS.push(mkBtn('REINICIAR',  bx,firstY+(bh+gap),     bw,bh,()=>{reset();initP1();},'orange'));
+  BTNS.push(mkBtn('PERSONAGEM', bx,firstY+(bh+gap)*2,   bw,bh,()=>{initCharSel();},'blue'));
+  BTNS.push(mkBtn('MENU',       bx,firstY+(bh+gap)*3,   bw,bh,()=>{reset();STATE='MENU';setupMenu();},'dark'));
 }
+
 function drawPause(){
   G.save();G.globalAlpha=.82;fr(0,0,NW,NH,C.ui0);G.restore();
-  const cw=180,ch=154,cx=(NW-cw)/2,cy=(NH-ch)/2-14;
+
+  const cw=180,ch=158;
+  const cx=(NW-cw)/2,cy=(NH-ch)/2;
+
   drawPanel(cx,cy,cw,ch,C.acc1);
   pxt('PAUSADO',NW/2,cy+4,C.gold,1,'center',true);
-  pxt('PONTOS: '+score,NW/2,cy+20,C.white,1,'center');
+  pxt('PONTOS: '+score,NW/2,cy+24,C.white,1,'center');
+
   drawBtns();
 }
 
